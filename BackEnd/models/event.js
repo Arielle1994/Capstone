@@ -25,11 +25,7 @@ const event=configdb.define('event', {
         type:Sequelize.TEXT,
         allowNull:false,
     },
-   
-    gender:{
-        type:Sequelize.STRING,
-        allowNull:false,
-    }
+
 
 }, {timestamps:false});
 

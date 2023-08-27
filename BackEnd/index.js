@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const configdb = require ('./config');
 const event= require('./models/event');
-const participant= require('./models/participant');
-const race_distance= require ('./models/race_distance');
+// const participant= require('./models/participant');
+// const race_distance= require ('./models/race_distance');
 const registration= require ('./models/registration');
-const cors= require('cors');
+const cors = require('cors');
 
 app.use(cors());
 
@@ -24,9 +24,9 @@ configdb.authenticate() //the promise
 
 //set up the routes here:
 
-app.get('/participants', function (req, res) {
+app.get('/event', function (req, res) {
 
-    participant.findAll()
+    event.findAll()
         .then(function (results) {
             res.status(200).send(results);
         })
@@ -35,6 +35,16 @@ app.get('/participants', function (req, res) {
         })
 })
 
+app.get('/registrations', function (req, res) {
+
+    registration.findAll()
+        .then(function (results) {
+            res.status(200).send(results);
+        })
+        .catch(function (error) {
+            res.status(500).send(error);
+        })
+})
 
 //get route for the events- will be similar to participants find by events
 //post
@@ -43,15 +53,17 @@ app.get('/participants', function (req, res) {
 //creating the get events for the rest
 
 //POST in how we get and save the data into the seperate tables
-// app.post('/registration', function (req, res) {
-//     let registration_data = req.body;
-//     participant.create(registration_data)
-//         .then(function (result) {
-//             res.status(200).send(result);
-//         })
-//         .catch(function (error) {
-//             res.status(500).send(error);
-//         });
+
+app.post('/register', function (req, res) {
+    let registration_data = req.body;
+    registration.create(registration_data)
+        .then(function (result) {
+            res.status(200).send(result);
+        })
+        .catch(function (error) {
+            res.status(500).send(error);
+        })
+    })
     
 //         registration.create(registration_data)
 //         .then(function (result) {
@@ -64,19 +76,17 @@ app.get('/participants', function (req, res) {
 
 
 
-//get route for the specific event_id
+// get route for the specific event_id
 
+app.get('/event/:event_id', function(req, res){
+    let eventId= req.params.event_id;
 
-
-// app.get('/tasks/:task_id', function(req, res){
-//     let taskId= req.params.task_id;
-
-//     Task.findByPk(taskId).then(function (result){
-//         res.status(200).send(result);
-//     }). catch(function(err){
-//         res.status(500).send(err);
-//     });
-// });
+    event.findByPk(eventId).then(function (result){
+        res.status(200).send(result);
+    }). catch(function(err){
+        res.status(500).send(err);
+    });
+});
 
 
 
