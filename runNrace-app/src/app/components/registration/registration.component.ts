@@ -10,7 +10,7 @@ import {RegisterService} from 'src/app/services/register.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent {
-  register!:IRegistration[];
+  // register!:IRegistration[];
   userForm: FormGroup=this.fb.group({
     first_name: ['',[Validators.required]],
     last_name:['',[Validators.required]],
@@ -25,8 +25,9 @@ export class RegistrationComponent {
     race_id:['',[Validators.required]],
     gender:['',[Validators.required]]
   });
-
-  constructor(private fb:FormBuilder, private _RegisterService:RegisterService){
+    
+  constructor(private fb:FormBuilder){ }
+  // constructor(private fb:FormBuilder, private _RegisterService:RegisterService){
 
     // _RegisterService.getRegistraions().subscribe({
     //   next:(results) =>{
@@ -37,31 +38,31 @@ export class RegistrationComponent {
     //   alert('something went wrong');
     // }
     // });
-  }
+  // }
   // onSubmit(formData:any){
   //   this._RegisterService.createRegistrant(formData).subscribe()
   //   console.log(this.userForm.value);
   // }
-  onSubmit(){
-    console.log('on submit before validation');
-    if (this.userForm.valid){
-    console.log('on submit after validation');
+  // onSubmit(){
+  //   console.log('on submit before validation');
+  //   if (this.userForm.valid){
+  //   console.log('on submit after validation');
 
-      let formData= this.userForm.value;
-      this._RegisterService.createRegistrant(formData).subscribe({
-        next:(result) => {
-          alert('Registrant was created successfully.');
-          this.userForm.reset();
-        },
-        error:(err) => {
-          console.log(err);
-          alert('something went wrong');
-        },
-      });
-    } else{
-      alert ('Form is not valid. please check the fields.');
-    }
-  }
+  //     let formData= this.userForm.value;
+  //     this._RegisterService.createRegistrant(formData).subscribe({
+  //       next:(result) => {
+  //         alert('Registrant was created successfully.');
+  //         this.userForm.reset();
+  //       },
+  //       error:(err) => {
+  //         console.log(err);
+  //         alert('something went wrong');
+  //       },
+  //     });
+  //   } else{
+  //     alert ('Form is not valid. please check the fields.');
+  //   }
+  // }
   // createRegistrant(){
   //   let formData = this.userForm.value;
   //   console.log('test');
@@ -76,6 +77,10 @@ export class RegistrationComponent {
   //     }
   //   });
   // }
+
+  onSubmit(){
+    console.log(this.userForm.value);
+  }
 
 get first_name(){
   return this.userForm.get('first_name')!; 

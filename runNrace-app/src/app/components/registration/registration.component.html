@@ -1,7 +1,7 @@
 <br />
 <br />
-<!-- <form (ngSubmit)="onSubmit(formData)" [formGroup]="userForm"> -->
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="userForm">
+<!-- <form [formGroup]="userForm" (ngSubmit)="onSubmit()"> -->
   <div class="container">
     <h1>Registration</h1>
     <div class="row">
@@ -165,13 +165,13 @@
         <br />
       </div>
       <div class="d-grid gap-2">
-        <!-- <button class="btn-btn-danger" type="button" (click)="onSubmit()">Register</button> -->
-        <button
+        <button type="button" class="btn btn-danger" (click)="onSubmit()">Register</button>
+        <!-- <button
           class="btn btn-danger"
           type="submit"
           [disabled]="userForm.invalid">
           Register
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
