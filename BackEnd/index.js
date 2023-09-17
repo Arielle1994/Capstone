@@ -1,97 +1,192 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const configdb = require ('./config');
-const event= require('./models/event');
-// const participant= require('./models/participant');
-// const race_distance= require ('./models/race_distance');
-const registration= require ('./models/registration');
-const cors = require('cors');
+const configdb = require("./config");
+const event = require("./models/event");
+const login = require("./models/login");
+const registration = require("./models/registration");
+const cors = require("cors");
+// const bcrypt = require('bcrypt');
+
+// app.use('/images',express.static('public/images'));
+
+//Middlewares:
 
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false })); //adding a global middleware
 
-app.use(express.urlencoded({extended:false})); //adding a global middleware
-app.use(express.json()); //Angular
+//Database Conntection:
 
+configdb
+  .authenticate() //the promise
+  .then(() => {
+    console.log("Database is connected");
 
-configdb.authenticate() //the promise
-    .then(function(){
-        console.log("Database is connected");
-    })
-    .catch(function(){
-        console.log("there is no connection");
-    })
+    configdb
+      .sync()
+      .then(() => {
+        console.log("Database synchronized.");
+      })
+      .catch((error) => {
+        console.error("Database synchronization error:", error);
+      });
 
-
-//set up the routes here:
-
-app.get('/event', function (req, res) {
-
-    event.findAll()
-        .then(function (results) {
-            res.status(200).send(results);
-        })
-        .catch(function (error) {
-            res.status(500).send(error);
-        })
-})
-
-app.get('/registrations', function (req, res) {
-
-    registration.findAll()
-        .then(function (results) {
-            res.status(200).send(results);
-        })
-        .catch(function (error) {
-            res.status(500).send(error);
-        })
-})
-
-//get route for the events- will be similar to participants find by events
-//post
-
-//Creating a new task for getting a participant 
-//creating the get events for the rest
-
-//POST in how we get and save the data into the seperate tables
-
-app.post('/register', function (req, res) {
-    let registration_data = req.body;
-    registration.create(registration_data)
-        .then(function (result) {
-            res.status(200).send(result);
-        })
-        .catch(function (error) {
-            res.status(500).send(error);
-        })
-    })
-    
-//         registration.create(registration_data)
-//         .then(function (result) {
-//             res.status(200).send(result);
-//         })
-//         .catch(function (error) {
-//             res.status(500).send(error);
-//         })
-// })
-
-
-
-// get route for the specific event_id
-
-app.get('/event/:event_id', function(req, res){
-    let eventId= req.params.event_id;
-
-    event.findByPk(eventId).then(function (result){
-        res.status(200).send(result);
-    }). catch(function(err){
-        res.status(500).send(err);
+    app.listen(3000, () => {
+      console.log("Server running at port 3000"); // Log a message indicating that the server is running
     });
-});
+
+    //Login Route
+
+    app.post("/login", async (req, res) => {
+      const emailAddress = req.body.email;
+      const clearTextPassword = req.body.password;
+
+      // Find a user using the email address
+      const data = {
+        where: { email: emailAddress },
+      };
+
+      login
+        .findOne(data)
+        .then((result) => {
+          if (result) {
+            // Compare clear text password to the password stored in DB
+            if (clearTextPassword === result.password) {
+              res.status(200).send(result);
+            } else {
+              res.status(401).send("Incorrect password");
+            }
+          } else {
+            res.status(404).send("User not found");
+          }
+        })
+        .catch((err) => {
+          res.status(500).send(err);
+        });
+    });
+
+    //Event Routes:
+
+    app.get("/events", function (req, res) {
+      event
+        .findAll()
+        .then(function (results) {
+          res.status(200).send(results);
+        })
+        .catch(function (error) {
+          res.status(500).send(error);
+        });
+    });
 
 
+    app.get("/events/:event_id", function (req, res) {
+      let eventId = req.params.event_id;
+
+      event
+        .findByPk(eventId)
+        .then(function (result) {
+          res.status(200).send(result);
+        })
+        .catch(function (err) {
+          res.status(500).send(err);
+        });
+    });
+
+//Creating a new Event
+
+app.post("/events", function (req, res) {
+    let event_data = req.body;
+    event
+      .create(event_data)
+      .then(function (result) {
+        res.status(200).send(result);
+      })
+      .catch(function (error) {
+        res.status(500).send(error);
+      });
+  });
+  
+  //Update an existing event
+  
+  app.put("/events/:event_id", function (req, res) {
+    let eventId = req.params.event_id;
 
 
-app.listen(3000,function(){
-    console.log('server running at port 3000');
-})
+    //find the event to update
+  
+    event
+      .findByPk(eventId)
+      .then(function (result) {
+        if (result) {
+          //updating the result object
+  
+          Object.assign(result, req.body);
+          //Save to DB
+          result.save().then(function () {
+            res.status(200).send(result);
+          });
+        } else {
+          res.status(404).send("Event not found");
+        }
+      })
+      .catch(function (err) {
+        res.status(500).send(err);
+      });
+  });
+  
+  //Delete an existing event
+  app.delete("/events/:event_id", function (req, res) {
+    let eventId = req.params.event_id;
+    //find the event to update
+  
+    event
+      .findByPk(eventId)
+      .then(function (result) {
+        if (result) {
+          //Delete result object from DB to DB
+          result.destroy().then(function () {
+            res.status(200).send(result);
+          });
+        } else {
+          res.status(404).send("Event not found");
+        }
+      })
+      .catch(function (err) {
+        res.status(500).send(err);
+      });
+  });
+
+  //Image Routes for future Work:
+    // app.get("/events/:event_image", function (req, res) {
+    //   let eventId = req.params.event_image;
+    //   event
+    //     .findByPk(eventId)
+    //     .then(function (result) {
+    //       res.status(200).send(result);
+    //     })
+    //     .catch(function (err) {
+    //       res.status(500).send(err);
+    //     });
+    // });
+
+    //Registration Route
+
+    app.post("/register", async (req, res) => {
+      try {
+        // Insert data into the "registration" model
+        const registrationData = req.body;
+        const result = await registration.create(registrationData);
+
+        // Send a successful response
+        res.status(200).send(result);
+      } catch (error) {
+        // Handle any errors and send an error response
+        console.error("Error:", error);
+        res.status(500).send("An error occurred.");
+      }
+    });
+  })
+  .catch((error) => {
+    console.error("Database connection error:", error);
+  });
 

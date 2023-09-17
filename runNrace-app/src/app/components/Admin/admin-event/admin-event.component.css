@@ -1,0 +1,25 @@
+
+.upper-right-button{
+position:absolute;
+top:0;
+right:0;
+
+}
+.card-img-custom{
+    width:288px;
+    height:288px;
+    object-fit:cover;
+}
+
+.container{
+    padding: 10px;
+
+}
+
+  .card-title {
+    font-size: 1.25rem; /* Set the title font size */
+  }
+  
+  .card-text {
+    font-size: 1rem; /* Set the text font size */
+  }

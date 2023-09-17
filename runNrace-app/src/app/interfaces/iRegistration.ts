@@ -1,14 +1,16 @@
 export interface IRegistration {
     registration_id: number;
-    race_id: number;
+    event_id: number;
     first_name: string;
     last_name:string;
-    age:number;
+    age:string;
     gender:string;
     email:string;
     phone_number:string;
     address: string;
     postal_code:string;
-    provinve:string;
+    province:string;
     city:string;
+    distance_length:string;
+    entry_type:string;
 }

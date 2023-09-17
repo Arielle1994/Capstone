@@ -3,10 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistrationComponent } from './components/registration/registration.component';
-import { EventsComponent } from './components/events/events.component';
+import { RegistrationComponent } from './components/User/registration/registration.component';
+import { EventsComponent } from './components/User/events/events.component';
 import{ ReactiveFormsModule } from '@angular/forms';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/User/home/home.component';
+import { EventComponent } from './components/User/event/event.component';
+import { EventDetailsComponent } from './components/User/event-details/event-details.component';
+import { AdminEventComponent } from './components/Admin/admin-event/admin-event.component';
+import { AdminEventEditComponent } from './components/Admin/admin-event-edit/admin-event-edit.component';
+import { AdminEventsComponent } from './components/Admin/admin-events/admin-events.component';
+import { ComponentLoginComponent } from './components/login/component-login.component';
+import { AuthgaurdService } from './services/authgaurd.service';
 
 
 @NgModule({
@@ -14,7 +21,14 @@ import { HomeComponent } from './components/home/home.component';
     AppComponent,
     RegistrationComponent,
     EventsComponent,
-    HomeComponent
+    HomeComponent,
+    EventComponent,
+    EventDetailsComponent,
+    AdminEventComponent,
+    AdminEventEditComponent,
+    AdminEventsComponent,
+    ComponentLoginComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -22,7 +36,7 @@ import { HomeComponent } from './components/home/home.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthgaurdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

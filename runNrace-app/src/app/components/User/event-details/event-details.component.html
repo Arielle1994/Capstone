@@ -1,0 +1,150 @@
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+    </div>
+    <div class="col-sm-8 text-left">
+      <h1>{{ this.eventDetails.event_name }}</h1>
+      <p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-calendar-check"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+          />
+          <path
+            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"
+          />
+        </svg>
+        {{ eventDetails.event_date | date }} <br />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-geo-alt-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+          />
+
+          <path
+            d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"
+          />
+        </svg>
+        {{ eventDetails.event_location }}
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-geo-alt-fill"
+          viewBox="0 0 16 16"
+        ></svg>
+      </p>
+
+      <hr />
+      <!-- <h3>Test</h3> -->
+      <div ng-repeat="member in vm.members" class="memberList" style="display: flex; align-items: center; justify-content: center;" >
+        <!-- {{member.username}} -->
+        <img class="md-avatar" style="border: 1px solid black; width: 800px; height: 600px; object-fit: cover"  src="{{eventDetails.event_image}}">
+    </div>
+    
+      <!-- <img
+        [src]="eventDetails.event_image"
+        alt="{{ eventDetails.event_name }}"
+      /> -->
+      <br />
+      <p>{{ this.eventDetails.event_description }}</p>
+      <br />
+      <h2>Entry Fees:</h2>
+      <ul>
+        <li>$12 General entry (per runner)</li>
+        <li>$8 Calgary Roadrunner members</li>
+        <li>$6 Full-time student</li>
+        <li>
+          $0 for Kids’ 1K Race. A parent or guardian must sign a waiver for each
+          child entered in the Kids’ 1K Race. Parents should print and sign a
+          Kids 1K waiver form (also available at the start).
+        </li>
+      </ul>
+      <h2>Location:</h2>
+      <p>{{ eventDetails.event_location }}: {{eventDetails.event_location_detials}}</p>
+    
+      <div
+        class="tribe-events-single-section tribe-events-event-meta secondary tribe-clearfix"
+      >
+        <div class="tribe-events-meta-group tribe-events-meta-group-venue">
+          <h2 class="tribe-events-single-section-title">Venue</h2>
+          <dl>
+            <dt
+              class="tribe-common-a11y-visual-hide"
+              aria-label="Venue name"
+            ></dt>
+            <dd class="tribe-venue">Sandy Beach Park</dd>
+            <dt
+              class="tribe-common-a11y-visual-hide"
+              aria-label="Venue address"
+            ></dt>
+            <dd class="tribe-venue-location">
+              <address class="tribe-events-address">
+                <span class="tribe-address">
+                  <span class="tribe-street-address">4500 14a St SW</span>
+                  <br />
+                  <span class="tribe-locality">Calgary</span
+                  ><span class="tribe-delimiter">,</span>
+                  <abbr class="tribe-region tribe-events-abbr" title="AB"
+                    >AB</abbr
+                  >
+                  <span class="tribe-postal-code">T2T 2V8</span>
+                  <span class="tribe-country-name">Canada</span>
+                </span>
+
+                <!-- I would go through the steps of adding google maps api key -->
+
+                <a
+                  class="tribe-events-gmap"
+                  href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=4500+14a+St+SW+Calgary+AB+T2T+2V8+Canada"
+                  title="Click to view a Google Map"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  >+ Google Map</a
+                >
+              </address>
+            </dd>
+          </dl>
+        </div>
+        <div class="tribe-events-venue-map">
+          <iframe
+            title="Google maps iframe displaying the address to {{
+              eventDetails.event_location
+            }}"
+            aria-label="Venue location map"
+            width="100%"
+            height="350px"
+            frameborder="0"
+            style="border: 0"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=4500+14a+St+SW+Calgary+AB+T2T+2V8+Canada+&amp;zoom=10"
+            allowfullscreen=""
+          >
+          </iframe>
+          <br>
+          <br>
+        </div>
+      </div>
+      <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-danger" type="button" routerLink="/registration" routerLinkActive="active"> Sign Me Up!
+        </button>
+      </div>
+      <hr />
+    </div>
+    <div class="col-sm-2 sidenav"> 
+    </div>
+<hr>
+</div>

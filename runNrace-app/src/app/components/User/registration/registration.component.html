@@ -1,0 +1,298 @@
+<div class="styling">
+  <form [formGroup]="userForm">
+    <div class="container">
+      <h1>Registration</h1>
+      <div class="row">
+        <div class="col">
+          <label for="first_name" class="col-sm-2 col-form-label">
+            First Name
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="John"
+            aria-label="First name"
+            formControlName="first_name"
+          />
+          <span *ngIf="first_name.dirty && first_name.errors?.['required']">
+            First Name is required
+          </span>
+        </div>
+        <div class="col">
+          <label for="last_name" class="col-sm-2 col-form-label"
+            >Last Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Jones"
+            aria-label="Last name"
+            formControlName="last_name"
+          />
+          <span *ngIf="last_name.dirty && last_name.errors?.['required']">
+            Last Name is required
+          </span>
+        </div>
+        <div class="col-12">
+          <label for="address" class="form-label">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            formControlName="address"
+            placeholder="1234 Main St"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="city" class="form-label">City</label>
+          <input
+            type="text"
+            class="form-control"
+            id="city"
+            formControlName="city"
+            placeholder="Toronto"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="province" class="form-label">Province</label>
+          <input
+            type="text"
+            class="form-control"
+            id="province"
+            formControlName="province"
+            placeholder="Ontario"
+          />
+        </div>
+        <div class="col-md-2">
+          <label for="postal_code" class="form-label">Postal Code</label>
+          <input
+            type="text"
+            class="form-control"
+            id="postal_code"
+            formControlName="postal_code"
+            placeholder="A1A 1A1"
+          />
+        </div>
+        <div class="col-sm-4">
+          <label for="phone_number" class="form-label"> Phone Number </label>
+          <input
+            type="text"
+            class="form-control"
+            id="phone_number"
+            formControlName="phone_number"
+            placeholder="403-555-666"
+          />
+          <span *ngIf="phone_number.dirty && phone_number.errors?.['required']">
+            Please enter your phone number
+          </span>
+        </div>
+        <div class="col-sm-6">
+          <label for="email" class="form-label"> Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            placeholder="John_Jones@gmail.com"
+          />
+          <span *ngIf="email.dirty && email.errors?.['required']">
+            Please enter your email
+          </span>
+        </div>
+        <div class="col-sm-2">
+          <label for="age" class="form-label">Age</label>
+          <label class="visually-hidden" for="age">Preference</label>
+          <select class="form-select" id="age" [(ngModel)]="selectedAge" name="age" formControlName="age" (change)="onAgeChange()">
+            <option value="">Choose...</option>
+            <option value="under 13">under 13</option>
+            <option value="13-17">13-17</option>
+            <option value="18-29">18-29</option>
+            <option value="30-39">30- 39</option>
+            <option value="40-49">40-49</option>
+            <option value="50-59">50-59</option>
+            <option value="60-69">60-69</option>
+            <option value="70-79">70-79</option>
+            <option value="80+">80+</option>
+          </select>
+          <span *ngIf="age.dirty && age.errors?.['required']">
+            Please enter your Age
+          </span>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="gender" class="form-label">Gender</label>
+          <label class="visually-hidden" for="gender">Preference</label>
+          <select class="form-select" id="gender" formControlName="gender">
+            <option value="">Choose...</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            <option value="Other">Other</option>
+          </select>
+          <div *ngIf="gender.dirty && gender.errors?.['required']">
+            Gender is required.
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="distance_length" class="form-label">Race Distance</label>
+          <label class="visually-hidden" for="distance_length"
+            >Preference</label
+          >
+          <select
+            class="form-select"
+            id="distance_length"
+            formControlName="distance_length"
+          >
+            <option value="">Choose...</option>
+            <option value="8KM">Standard Course (8KM)</option>
+            <option value="4KM">Short Course (4KM)</option>
+            <option value="1KM">Kids Race (1KM)</option>
+          </select>
+          <div
+            *ngIf="distance_length.dirty && distance_length.errors?.['required']"
+          >
+            Please choose your Race Distance
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label for="event_id" class="form-label">Event</label>
+          <label class="visually-hidden" for="event_id">Preference</label>
+          <select class="form-select" id="event_id" formControlName="event_id">
+            <option value="">Choose...</option>
+            <option *ngFor="let event of events" [value]="event.event_id">
+              {{ event.event_name }}
+            </option>
+          </select>
+          <div *ngIf="event_id.dirty && event_id.errors?.['required']">
+            Please choose your Race Distance
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <label for="entry_type" class="form-label">Entry Type </label>
+          <label class="visually-hidden" for="entry_type">Preference</label>
+          <select
+            class="form-select"
+            id="entry_type"
+            formControlName="entry_type"
+          >
+            <option value="">Choose...</option>
+            <option value="General $12">General $12</option>
+            <option value="CRR Member $8">CRR Member $8</option>
+            <option value="Full-Time student $6">Full-Time student $6</option>
+            <option value="Child 12 & under Free">Child 12 & under Free</option>
+            <option value="Volunteer Free">Volunteer Free</option>
+          </select>
+          <span *ngIf="entry_type.dirty && entry_type.errors?.['required']">
+            Please enter your Age
+          </span>
+        </div>
+        <div *ngIf="areFieldsCompleted()">
+          <br />
+          <div class="card">
+            <div class="card-body">
+              OFFICIAL RELEASE/AGREEMENT: As consideration for being permitted
+              by Calgary Road Runners to participate in the run/walk, I hereby
+              agree that I, my assignees, heirs, distributees, guardians and
+              legal representatives will not make a claim against, sue or attach
+              the property of the Promoters and Sponsors, for any and all
+              injuries or damage arising from my participation in the run/walk.
+              I also give free use of my name and/or picture in any broadcast,
+              telecast, or other account of this event. ASSUMPTION OF RISK: I am
+              aware that running/walking a 4 or 8 KM race is a strenuous and
+              potentially dangerous activity. With knowledge of the risk
+              involved, I hereby agree to accept any and all risks of injury or
+              death. I represent and certify that I am physically fit and I have
+              sufficiently trained for this event. I have carefully read this
+              agreement and understand its contents. I'm aware that this is a
+              release of liability, and a contract between myself and the
+              Promoters and Sponsors, and sign it of my own free will.
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="waiverCheck"
+                formControlName="waiverCheck"
+                required
+              />
+              <label class="form-check-label" for="waiverCheck">
+                I agree to the terms.
+              </label>
+            </div>
+          </div>
+        </div>
+    <br>
+        <div *ngIf="areFieldsAndWaiverCompleted()">
+          <div class="card">
+          <div class="card-body">
+          <fieldset>
+          <div *ngIf="selectedAge !== 'under 13'">
+
+
+
+          <legend> Payment Information</legend>
+          <div class="row g-3">
+          <div class="col-12">
+            <div class="form-check" [ngClass]="{'disabled':selectedAge === 'under 13'}">
+              <input class="form-check-input" type="radio" name="PayPal" id="PayPal" [disabled]="selectedAge === 'under 13'">
+              <label class="form-check-label" for="PayPal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paypal" viewBox="0 0 16 16">
+                  <path d="M14.06 3.713c.12-1.071-.093-1.832-.702-2.526C12.628.356 11.312 0 9.626 0H4.734a.7.7 0 0 0-.691.59L2.005 13.509a.42.42 0 0 0 .415.486h2.756l-.202 1.28a.628.628 0 0 0 .62.726H8.14c.429 0 .793-.31.862-.731l.025-.13.48-3.043.03-.164.001-.007a.351.351 0 0 1 .348-.297h.38c1.266 0 2.425-.256 3.345-.91.379-.27.712-.603.993-1.005a4.942 4.942 0 0 0 .88-2.195c.242-1.246.13-2.356-.57-3.154a2.687 2.687 0 0 0-.76-.59l-.094-.061ZM6.543 8.82a.695.695 0 0 1 .321-.079H8.3c2.82 0 5.027-1.144 5.672-4.456l.003-.016c.217.124.4.27.548.438.546.623.679 1.535.45 2.71-.272 1.397-.866 2.307-1.663 2.874-.802.57-1.842.815-3.043.815h-.38a.873.873 0 0 0-.863.734l-.03.164-.48 3.043-.024.13-.001.004a.352.352 0 0 1-.348.296H5.595a.106.106 0 0 1-.105-.123l.208-1.32.845-5.214Z"/>
+                </svg>
+                PayPal
+              </label>
+            </div>
+            <div class="form-check"> 
+              <input class="form-check-input" type="radio" name="creditCard" id="creditCard" checked [disabled]="selectedAge ==='under13'">
+              <label class="form-check-label" for="creditCard">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                </svg>
+                Credit Card
+              </label>
+            </div>
+          
+              <label for="cardName" class="cardName">Cardholder Name </label>
+              <input type="text" class="form-control" id="cardName" placeholder="Cardholder Name" formControlName="cardName">
+            </div>
+            <div class="col-12">
+              <label for="cardNumber" class="cardNumber">Card Number</label>
+              <input type="text" class="form-control" id="cardNumber" placeholder="1234 4567 8901 2345">
+            </div>
+            <div class="col-md-4">
+              <label for="expirationDate" class="form-label">Expiration Date (MM/YY) </label>
+              <input type="text" class="form-control" id="expirationDate" formControlName="expirationDate" placeholder="12/12" formControlName="expirationDate">
+            </div>
+            <div class="col-md-4">
+              <label for="CVV" class="form-label"> CVV </label>
+              <input
+                type="password"
+                class="form-control"
+                id="cardNumber"
+                formControlName="cardNumber"
+                placeholder="***"
+                formControlName="CVV"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="postalCode" class="form-label">Postal Code</label>
+              <input type="text" class="form-control" id="postalCode" formControlName="postalCode"
+              placeholder="A1A 1A1">
+            </div>  
+        </div>
+      </div>
+      </fieldset>
+        </div>
+      </div>
+      </div>
+      <div class="d-grid gap-2">
+        <button type="button" class="btn btn-danger" (click)="onSubmit()">
+          Register
+        </button>
+      </div>
+ <!-- </form> -->
+</div>
+  

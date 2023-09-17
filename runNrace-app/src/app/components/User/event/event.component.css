@@ -1,0 +1,36 @@
+
+.card-img-custom{
+    width:288px;
+    height:288px;
+    object-fit:cover;
+}
+
+.container{
+    padding: 10px;
+
+}
+
+/* .card-img-fixed{
+    width:400px;
+    height:150;
+}
+.card {
+    width: 18rem; /* Set the card width */
+  /* }
+  
+  .card-img-top {
+    max-width: 100%; /* Make the image responsive
+    height: 100%;  Automatically adjust the image height
+
+  }*/
+  
+  .card-title {
+    font-size: 1.25rem; /* Set the title font size */
+  }
+  
+  .card-text {
+    font-size: 1rem; /* Set the text font size */
+  }
+  
+  /* Add more styling as needed for your other elements */
+  
