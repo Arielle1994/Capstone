@@ -4,6 +4,7 @@ const configdb = require("./config");
 const event = require("./models/event");
 const login = require("./models/login");
 const registration = require("./models/registration");
+
 const cors = require("cors");
 // const bcrypt = require('bcrypt');
 
@@ -171,22 +172,37 @@ app.post("/events", function (req, res) {
 
     //Registration Route
 
-    app.post("/register", async (req, res) => {
-      try {
-        // Insert data into the "registration" model
-        const registrationData = req.body;
-        const result = await registration.create(registrationData);
+    http://localhost:3000/registrants
 
-        // Send a successful response
-        res.status(200).send(result);
-      } catch (error) {
-        // Handle any errors and send an error response
-        console.error("Error:", error);
-        res.status(500).send("An error occurred.");
-      }
-    });
-  })
-  .catch((error) => {
-    console.error("Database connection error:", error);
+app.get("/registrations", async(req,res) => {
+  
+  try {
+    // Retrieve registration data from the database using Sequelize
+    const registrations = await registration.findAll(); // Replace 'Registration' with your Sequelize model
+
+    // Send the data as JSON to the client
+    res.json(registrations);
+  } catch (error) {
+    console.error('Error retrieving registrations:', error);
+    res.status(500).json({ error: 'An error occurred while retrieving data.' });
+  }
+});
+
+    
+  app.post("/register", async (req, res) => {
+    try {
+      const registrationData = req.body;
+      console.log(req.body);
+      const result = await registration.create(registrationData);
+      res.status(200).send(result);
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send("An error occurred.");
+    }
+  });
+})
+
+.catch((error) => {
+  console.error("Database connection error:", error);
   });
 

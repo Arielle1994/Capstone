@@ -1,0 +1,45 @@
+<!-- your-component.component.html -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Event ID </th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Email</th>
+      <th>Phone Number </th>  
+      <th>Distance</th>
+      <th>Adress</th>
+      <th>Postal Code</th>
+      <th>Entry Type</th>
+      <th>Waiver</th>
+
+      <!-- Add more table headers for other properties -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let registration of registrations">
+      <td>{{registration.event_id}}</td>
+      <td>{{ registration.first_name }}</td>
+      <td>{{ registration.last_name }}</td>
+      <td>{{ registration.age }}</td>
+      <td>{{ registration.gender }}</td>
+      <td>{{registration.email}}</td>
+      <td>{{registration.phone_number}}</td>
+      <td>{{registration.distance_length}}</td>
+      <td>{{registration.address}}</td>
+      <td>{{registration.postal_code}}</td>
+      <td>{{registration.entry_type}}</td>
+      <td>{{registration.waiver}}</td>
+
+
+
+
+
+      <!-- Add more table cells for other properties -->
+    </tr>
+  </tbody>
+</table>
+

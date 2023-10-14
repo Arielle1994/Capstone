@@ -13,4 +13,5 @@ export interface IRegistration {
     city:string;
     distance_length:string;
     entry_type:string;
+    waiver:string;
 }

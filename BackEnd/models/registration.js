@@ -3,7 +3,7 @@ const configdb=require('./../config');
 const event=require('./event');
 
 
-const registration=configdb.define('registration', {
+const registration=configdb.define('registrations', {
 
         registration_id:{
         type:Sequelize.INTEGER,
@@ -30,9 +30,8 @@ const registration=configdb.define('registration', {
         type:Sequelize.ENUM('under 13','13-17','18-29','30-39','40-49','50-59','60-69','70-79','80+'),
         allowNull:false,
     },
-   
     gender:{
-        type:Sequelize.ENUM('Male','Female','Other'),
+        type:Sequelize.ENUM('Male','Female'),
         allowNull:false,
     },
    email:{
@@ -66,8 +65,11 @@ const registration=configdb.define('registration', {
     entry_type:{
         type:Sequelize.ENUM('General $12','CRR Member $8','Full-time student $6','child 12 & under Free'),
         allowNull:false,
-    }
-
+    },
+    waiver:{
+        type:Sequelize.ENUM('Y','N'),
+        allowNull:true,
+    },
 
 
 }, {timestamps:false});

@@ -8,6 +8,7 @@ import { AdminEventsComponent } from './components/Admin/admin-events/admin-even
 import { AdminEventEditComponent } from './components/Admin/admin-event-edit/admin-event-edit.component';
 import { ComponentLoginComponent } from './components/login/component-login.component';
 import { AuthgaurdService } from './services/authgaurd.service';
+import { AdminRegistrationComponent } from './components/Admin/admin-registration/admin-registration.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,9 @@ const routes: Routes = [
   {path:'admin', component:AdminEventsComponent, canActivate:[AuthgaurdService]},
   {path:'edit-event/:event_id', component:AdminEventEditComponent, canActivate:[AuthgaurdService]},
   {path:'create-task', component:AdminEventEditComponent,canActivate:[AuthgaurdService] },
-  {path:'login', component:ComponentLoginComponent}
+  {path:'login', component:ComponentLoginComponent},
+  {path:'registraion_data', component:AdminRegistrationComponent}
+
 
 ];
 

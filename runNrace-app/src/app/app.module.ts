@@ -14,6 +14,7 @@ import { AdminEventEditComponent } from './components/Admin/admin-event-edit/adm
 import { AdminEventsComponent } from './components/Admin/admin-events/admin-events.component';
 import { ComponentLoginComponent } from './components/login/component-login.component';
 import { AuthgaurdService } from './services/authgaurd.service';
+import { AdminRegistrationComponent } from './components/Admin/admin-registration/admin-registration.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { AuthgaurdService } from './services/authgaurd.service';
     AdminEventEditComponent,
     AdminEventsComponent,
     ComponentLoginComponent,
+    AdminRegistrationComponent,
    
   ],
   imports: [

@@ -1,8 +1,12 @@
-.styling{
+/* .styling{
     margin-top: 5%;
     border: 30px;
 }
-
+@media (max-width: 768px) {
+    .styling {
+      margin-top: 3%;
+    }
+}
 label{
     font-family:Arial, Helvetica, sans-serif;
     font-size: large;
@@ -31,3 +35,153 @@ padding-bottom: 50px;
     margin-bottom: 20px;
 
 }
+
+.large-outlined-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+  
+
+} */
+
+/* .input-tall {
+    height: 50px; Adjust the height value as needed
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    flex: 1; Allow containers to grow and take up equal space within a row
+    max-width: calc(50% - 10px); Limit each container to 50% width minus margins
+
+}
+.input-container {
+    border: 1px solid #ccc; Add a border with your desired style
+    padding: 5px; Add padding to space the input from the border
+    margin:5px;
+    border-radius: 5px; Add rounded corners if desired
+   
+} */
+/* ::placeholder {
+    Define your desired styles for the placeholder text
+    color: #141414; Change the text color
+    font-style: bold; Apply italic font style
+    font-size: 18px; Adjust the font size
+    padding-left: 10px;
+
+}
+.outlined-container {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    flex: 1; Allow containers to grow and take up equal space within a row
+    max-width: calc(50% - 10px); Limit each container to 50% width minus margins
+    height: 50px;
+    background-color:rgba(255, 255, 255, 0.547);
+    overflow: hidden; Hide overflowing content
+    align-items: center;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+   
+}
+
+.form-check-input {
+    margin-right: 10px; Add space between the radio button and label
+} */
+/* .form-check-label {
+   
+    color: #141414; 
+    font-style: bold; 
+    font-size: 18px; 
+    margin: 0;
+    padding: 5px; 
+    display: inline-block; 
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 3px; 
+} */
+
+.Women-outlined-container {
+    border: 1px solid #ccc;
+    padding: 3px;
+    margin: 5px;
+    border-radius: 5px;
+    flex: 1; /*Allow containers to grow and take up equal space within a row*/
+    /* max-width: calc(50% - 10px); /* Limit each container to 50% width minus margins */
+    height: 40px; 
+    background-color:rgba(224, 19, 19, 0.474);
+    overflow: hidden; /* Hide overflowing content */
+}
+ .male-outlined-container{
+    border: 1px solid #ccc;
+    padding: 3px;
+    margin: 5px;
+    border-radius: 5px;
+    flex: 1; /*Allow containers to grow and take up equal space within a row*/
+    /* max-width: calc(50% - 10px); /* Limit each container to 50% width minus margins */
+    height: 40px; 
+    background-color:rgba(27, 62, 159, 0.093);
+    overflow: hidden; /* Hide overflowing content */
+}
+
+.medium-outlined-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    /* background-color: red; */
+}
+
+.validation-message {
+    /* position: absolute; */
+    transform: translateY(10%); /* Move it up by 50% of its own height */
+    color: red; /*Customize the color for validation messages */
+    font-size: 18px; /* Adjust the font size */
+  }
+  .container{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-40%);
+    border:1px solid black;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    /* display: flex; */
+    /* justify-content: flex-end; */
+    /* align-items: end;  */
+    /* background-color: rgba(245, 240, 240, 0.649); */
+    /* background-image: url('https://scopeblog.stanford.edu/wp-content/uploads/2023/07/runnerAdobeStock_99717260.jpg'); */
+    /* background-size: cover; /* Adjust the background size as needed */
+  /* background-repeat: no-repeat; Prevent the background image from repeating */
+  /* background-position: center center; Center the background image horizontally and vertically */
+  }
+  h1,h4{
+    text-align: center;
+    padding: 10px;
+  }
+
+  .custom-container {
+    width: 100%; /* Set the desired width for all custom containers */
+  }
+  /* .inner-container {
+    width: 100%; /* 2/3 of the parent container's width */
+    /* max-width: 1200px; Set a maximum width if needed */
+    /* background-color: #ffffffa7; Optional background color for the inner container */
+    /* padding: 20px; Add padding to the inner container */
+    /* border: 1px solid #ccc; Optional border styling */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); Optional box shadow */
+    /* text-align: center; */
+  /* } */
+
+  .small-outlined-container{
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;}

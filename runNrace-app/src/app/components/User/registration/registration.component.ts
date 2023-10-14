@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { IRegistration} from 'src/app/interfaces/iRegistration';
 import { EventsService } from 'src/app/services/events.service';
@@ -32,8 +32,18 @@ export class RegistrationComponent {
     event_id:['',[Validators.required]],
     gender:['',[Validators.required]],
     entry_type:[''],
-    waiverCheck:[false,[Validators.required]],
+    waiverCheck:[''],
+    // waiverCheck:[false,[Validators.required]],
   });
+  // clearPlaceholder(inputElement: HTMLInputElement) {
+  //   // Perform actions on the input element, e.g., clear placeholder text
+  //   inputElement.placeholder = '';
+  // }
+  
+  // resetPlaceholder(inputElement: HTMLInputElement) {
+  //   // Reset the placeholder text to its original value
+  //   inputElement.placeholder = 'First Name';
+  // }
 
   onAgeChange(){
     if(this.selectedAge === 'under 13'){
@@ -55,17 +65,39 @@ export class RegistrationComponent {
     
   constructor(private fb:FormBuilder, private _RegisterService:RegisterService,private _eventService:EventsService){
   
+    // this.userForm=this.fb.group({
+    //     genderCategory:['']
+    //   });
 
     this.userForm.get('waiverCheck')?.valueChanges.subscribe((checked: boolean) => {
       this.waiverCompleted = checked;
     });
-  }
+
+    // this.userForm.get('genderCategory')?.valueChanges.subscribe((selectedGender: string) => {
+    //   // Depending on the selectedGender, set the disabled state of male and female controls
+    //   if (selectedGender === 'Male') {
+    //     this.userForm.get('male_category')?.enable();
+    //     this.userForm.get('female_category')?.disable();
+    //   } else if (selectedGender === 'Female') {
+    //     this.userForm.get('male_category')?.disable();
+    //     this.userForm.get('female_category')?.enable();
+    //   } else {
+    //     // If neither Male nor Female is selected, enable both controls
+    //     this.userForm.get('male_category')?.enable();
+    //     this.userForm.get('female_category')?.enable();
+    //   }
+    // });
+}
+
 
   ngOnInit(){
     this._eventService.getEvents().subscribe((data) => {
       this.events =data;
     });
   }
+
+  
+  
   
   areFieldsCompleted(): boolean {
     const fieldsToCheck = [
@@ -171,4 +203,11 @@ get event_id(){
 get entry_type(){
   return this.userForm.get('entry_type')!;
 }
+// get female_category(){
+//   return this.userForm.get ('female_category')!;
+// }
+
+// get male_category(){
+//   return this.userForm.get ('male_category')!;
+// }
 }
