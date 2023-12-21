@@ -15,6 +15,9 @@ import { AdminEventsComponent } from './components/Admin/admin-events/admin-even
 import { ComponentLoginComponent } from './components/login/component-login.component';
 import { AuthgaurdService } from './services/authgaurd.service';
 import { AdminRegistrationComponent } from './components/Admin/admin-registration/admin-registration.component';
+// import { PaymentComponent } from './components/User/payment/payment.component';
+import { NgxStripeModule } from 'ngx-stripe';
+
 
 
 @NgModule({
@@ -30,13 +33,15 @@ import { AdminRegistrationComponent } from './components/Admin/admin-registratio
     AdminEventsComponent,
     ComponentLoginComponent,
     AdminRegistrationComponent,
+    // PaymentComponent,
    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxStripeModule.forRoot()
   ],
   providers: [AuthgaurdService],
   bootstrap: [AppComponent]

@@ -18,4 +18,8 @@ createRegistrant(formData:any): Observable<any>{
   const url= `${this.apiUrl}/register`;
   return this.http.post<IRegistration>('http://localhost:3000/register', formData);
 }
+registerAll(registrants:IRegistration[]): Observable <any> {
+  const url= `${this.apiUrl}/register/batch`;
+  return this.http.post<IRegistration>('http://localhost:3000/register/batch', registrants);
+}
 }

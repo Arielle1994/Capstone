@@ -3,6 +3,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RegisterService } from '../register.service';
 import { IRegistration } from 'src/app/interfaces/iRegistration';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-registration',
@@ -12,7 +13,7 @@ import { IRegistration } from 'src/app/interfaces/iRegistration';
 export class AdminRegistrationComponent implements OnInit {
   registrations: IRegistration[] =[];
 
-  constructor(private _RegisterService:RegisterService){}
+  constructor(private _RegisterService:RegisterService, private http:HttpClient){}
 
   ngOnInit(): void {
     // Call the service method to get registrants
@@ -27,4 +28,23 @@ export class AdminRegistrationComponent implements OnInit {
     );
   }
 
+  exportToCSV() {
+    this._RegisterService.exportRegistrantsToCSV().subscribe(
+      (data: Blob) => {
+        const blob = new Blob([data], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'registration_data.csv';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Error exporting data:', error);
+        // Handle the error (e.g., show an error message to the user)
+      }
+    );
+
+    }
 }

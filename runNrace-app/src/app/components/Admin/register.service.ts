@@ -17,4 +17,9 @@ export class RegisterService {
   getRegistrants(): Observable<any[]>{
     return this.http.get<IRegistration[]>(`${this.baseUrl}/registrations`)
   }
+
+  exportRegistrantsToCSV(): Observable<Blob> {
+    // Replace 'blob' with the desired response type
+    return this.http.get(`${this.baseUrl}/api/export`, { responseType: 'blob' });
+  }
 }

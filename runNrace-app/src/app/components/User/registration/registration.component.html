@@ -1,5 +1,16 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewprt" content="width=device-width, initial-scale=1.0">
+  <title> Registration </title>
+
+  </head> -->
+
 <div class="styling">
-  <form [formGroup]="userForm">
+  <!-- <form (ngSubmit)="proceedToCheckout()" [formGroup]="userForm"> -->
+  <form (ngSubmit)="onSubmit()" [formGroup]="userForm">
     <div class="container">
       <h1>Registration</h1>
       <div class="row">
@@ -255,7 +266,8 @@
               </label>
             </div>
           
-              <label for="cardName" class="cardName">Cardholder Name </label>
+          
+              <!-- <label for="cardName" class="cardName">Cardholder Name </label>
               <input type="text" class="form-control" id="cardName" placeholder="Cardholder Name">
             </div>
             <div class="col-12">
@@ -283,15 +295,33 @@
               placeholder="A1A 1A1">
             </div>  
         </div>
+      </div> -->
+      <!-- </fieldset> -->
+
+
+      
+      <!-- </div>
+      <div class="d-grid gap-2">
+        <button type="button" class="btn btn-danger" (click)="onCheckout()">
+          Payment
+        </button>
+      </div> -->
+
       </div>
-      </fieldset>
-        </div>
-      </div> 
+      <button type="button" (click)="addParticipant()">Add Another Runner</button>
+      <div *ngFor="let registrant of registrants; let i= index" class="participant-info">
+        <h4> Participant {{ i + 1 }}</h4>
+        <p> Name: {{registrant.first_name}} {{registrant.last_name}} </p>
+        <!-- come back and add the rest of the form fields that you want to be displayed -->
       </div>
+      <!-- <div class="d-grid gap-2">
+        <button type="button" class="btn btn-danger" (click)="proceedToCheckout()">
+          Register All
+        </button>
+      </div> -->
       <div class="d-grid gap-2">
         <button type="button" class="btn btn-danger" (click)="onSubmit()">
           Register
         </button>
       </div>
-</div>
-  
+<!-- </div> -->

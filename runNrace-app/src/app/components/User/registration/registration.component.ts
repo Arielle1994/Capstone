@@ -1,8 +1,11 @@
-import { Component, ElementRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup, Validators } from '@angular/forms';
+import { loadStripe } from '@stripe/stripe-js';
 import { IRegistration} from 'src/app/interfaces/iRegistration';
 import { EventsService } from 'src/app/services/events.service';
 import {RegisterService} from 'src/app/services/register.service';
+// import { stripeConfig } from './stripe.config';
 
 
 @Component({
@@ -11,10 +14,14 @@ import {RegisterService} from 'src/app/services/register.service';
   styleUrls: ['./registration.component.css']
 })
 
+
 export class RegistrationComponent {
+
   events:any[]=[];
   waiverCompleted:boolean=false;
   selectedAge:string=''
+  registrants: IRegistration[] = [];
+
   // paymentRequired: boolean = true; // Default to true, indicating payment is required
   // precedingFieldsCompleted=false;
   register!:IRegistration[];
@@ -34,6 +41,7 @@ export class RegistrationComponent {
     entry_type:[''],
     waiverCheck:[''],
     // waiverCheck:[false,[Validators.required]],
+    
   });
   // clearPlaceholder(inputElement: HTMLInputElement) {
   //   // Perform actions on the input element, e.g., clear placeholder text
@@ -61,9 +69,9 @@ export class RegistrationComponent {
       // this.userForm.controls['entry_type'].enable(); // Enable entry_type control
     
     }
-  }
-    
-  constructor(private fb:FormBuilder, private _RegisterService:RegisterService,private _eventService:EventsService){
+  
+} 
+  constructor(private fb:FormBuilder, private _RegisterService:RegisterService,private _eventService:EventsService, private http:HttpClient){
   
     // this.userForm=this.fb.group({
     //     genderCategory:['']
@@ -90,6 +98,7 @@ export class RegistrationComponent {
 }
 
 
+
   ngOnInit(){
     this._eventService.getEvents().subscribe((data) => {
       this.events =data;
@@ -97,7 +106,7 @@ export class RegistrationComponent {
   }
 
   
-  
+
   
   areFieldsCompleted(): boolean {
     const fieldsToCheck = [
@@ -142,23 +151,142 @@ export class RegistrationComponent {
     });
   }
 
-  onSubmit() {
-    if (this.userForm.valid) {
-      const formData = this.userForm.value;
-      this._RegisterService.createRegistrant(formData).subscribe(
-        (result) => {
-          alert('Registrant was created successfully.');
-          this.userForm.reset();
-        },
-        (err) => {
-          console.log(err);
-          alert('Something went wrong');
-        }
-      );
+  addParticipant() {
+    if (this.areFieldsAndWaiverCompleted()) {
+      const newRegistrant: IRegistration = this.userForm.value;
+      this.registrants.push(newRegistrant);
+      this.userForm.reset();
     } else {
-      alert('Form is not valid. Please check the fields.');
+      alert('Please complete all fields and accept waiver before adding another person');
     }
   }
+  
+  addRegistrant() {
+    const newRegistrant: IRegistration = this.userForm.value;
+    this.registrants.push(newRegistrant);
+    this.userForm.reset();
+  }
+
+  // addParticipant() {
+  //   if(this.areFieldsAndWaiverCompleted()) {
+  //     const formData = this.userForm.value;
+  //     this.registrants.push(this.userForm.value);
+  //     this.userForm.reset(); 
+  //   } else{
+  //     alert('please complete all fields and accept aiver before adding another person');
+  //   }
+  //   }
+  // addRegistrant() {
+  //   this.registrants.push(this.userForm.value);
+  //   this.userForm.reset();
+  // }
+
+  // onSubmit() {
+  //     if (this.registrants.length > 0 ){
+  //       this._RegisterService.registerAll(this.registrants).subscribe(
+  //         (result) => {
+  //           alert ('Registrants were registered successffully');
+  //           this.registrants= [];
+  //           this.userForm.reset(); 
+  //         }, 
+  //           (err) => { 
+  //             console.log(err);
+  //             alert ('Something went wrong');
+  //           }
+  //         );
+        // } else {
+        //   this._RegisterService.registerAll(this.registrants).subscribe(
+        //     (result) => {
+        //       alert ('Registrants were registered successfully.');
+        //       this.registrants =[];
+        //       this.userForm.reset();
+        //     },
+        //     (err) => {
+        //       console.log(err);
+        //       alert('Something went wrong');
+        //     }
+        //   );
+        // }
+    //   } else {
+    //     alert('No registrants to register.');
+    //   }
+    // }
+  
+        
+    // proceedToCheckout(){
+    //   console.log('Registrants:', this.registrants);
+    // }
+
+    onSubmit() {
+      if (this.userForm.valid) {
+        // Single registrant
+        const formData = this.userForm.value;
+        this._RegisterService.createRegistrant(formData).subscribe(
+          (result) => {
+            alert('Registrant was created successfully.');
+            this.userForm.reset();
+          },
+          (err) => {
+            console.log(err);
+            alert('Something went wrong');
+          }
+        );
+      } else if (this.registrants.length > 0) {
+        // Multiple registrants
+        this._RegisterService.registerAll(this.registrants).subscribe(
+          (result) => {
+            alert('Registrants were registered successfully.');
+            this.registrants = [];
+          },
+          (err) => {
+            console.log(err);
+            alert('Something went wrong');
+          }
+        );
+      } else {
+        // Handle the case where neither single nor multiple registrants are available
+        alert('No registrants to submit.');
+      }
+    }
+  // onSubmit() {
+  //   if (this.userForm.valid) {
+  //     const formData = this.userForm.value;
+  //     this._RegisterService.createRegistrant(formData).subscribe(
+  //       (result) => {
+  //         alert('Registrant was created successfully.');
+  //         this.userForm.reset();
+  //       },
+  //       (err) => {
+  //         console.log(err);
+  //         alert('Something went wrong');
+  //       }
+  //     );
+
+  //   } else {
+  //     this._RegisterService.registerAll(this.registrants).subscribe(
+  //       (result) => {
+  //         alert ('Registrants were registered successfully.');
+  //         this.registrants =[];
+  //       },
+  //       (err) => {
+  //         console.log(err);
+  //         alert('Something went wrong');
+  //       }
+  //     );
+  //   }
+
+
+  // onCheckout(): void {
+  //   this.http.post('http://localhost:4242/checkout',{
+  //     items:this.register.items
+  //   }).subscribe(async (res: any) =>
+  //   {
+  //     let stripe = await loadStripe('pk_test_51O8nIAGSTpg97mPkNRs7aRTV812phc9yDfl2jXD6h4yLvv7WFIGD3ZKCBhg9fR10w0JXX9s2C8zE3XZbbzI0LYAA00KPsAChde')
+  //     stripe?.redirectToCheckout({
+  //       sessionId:res.id
+  //     })
+  //   });
+  // }
   
 get first_name(){
   return this.userForm.get('first_name')!; 
@@ -210,4 +338,5 @@ get entry_type(){
 // get male_category(){
 //   return this.userForm.get ('male_category')!;
 // }
+
 }

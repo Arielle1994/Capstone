@@ -1,0 +1,12 @@
+<div class="stripe-payment-container">
+    <div class="stripe-payment-form">
+      <h5>Stripe Payment</h5>
+        <mat-form-field >
+            <input matInput [(ngModel)]="stripeAmount" type="number" required/>
+            <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" (click)="checkout()">
+            Checkout
+        </button>
+    </div>
+</div>
